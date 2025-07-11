@@ -1,0 +1,21 @@
+<div class="container mt-4">
+  <h2>Pagos Realizados</h2>
+
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let pago of pagos">
+      <div class="card shadow">
+        <div class="card-body">
+          <h5 class="card-title">Pago ID: {{ pago.id }}</h5>
+          <p class="card-text">
+            <strong>ID Reserva:</strong> {{ pago.id_reserva }}<br>
+            <strong>Monto:</strong> ${{ pago.monto | number }}<br>
+            <strong>Fecha:</strong> {{ pago.fecha_pago | date:'yyyy-MM-dd' }}
+          </p>
+        </div>
+        <div class="card-footer text-end">
+          <button class="btn btn-sm btn-danger" (click)="eliminarPago(pago.id!)">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

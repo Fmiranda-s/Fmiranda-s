@@ -1,0 +1,83 @@
+<div class="container mt-5">
+  <h2 class="mb-4 text-center">Habitaciones del Hotel</h2>
+
+  <!-- Tarjetas habitaciones -->
+  <div class="row g-4">
+    <div class="col-md-4" *ngFor="let habitacion of habitaciones">
+      <div class="card h-100 shadow-sm">
+        <img
+          [src]="
+            habitacion.tipo === 'economico'
+              ? 'https://www.hotelcumbresdelsur.cl/wp-content/uploads/2020/01/habitacion-economica-9.jpg'
+              : habitacion.tipo === 'vip'
+                ? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkCOCCGHW9PFX3REnMdk9a7wW2mHA7QlaZEg&s'
+                : 'assets/habitacion.jpg'
+          "
+          class="card-img-top"
+          alt="Habitación"
+          style="height: 200px; object-fit: cover;"
+        />
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">Habitación N° {{ habitacion.numero }}</h5>
+          <p class="card-text flex-grow-1">
+            <span class="badge bg-primary text-uppercase">{{ habitacion.tipo }}</span><br />
+            <strong>Precio:</strong> ${{ habitacion.precio | number }}
+          </p>
+          <div class="d-flex justify-content-center">
+            <button
+              class="btn btn-primary btn-sm"
+              *ngIf="habitacion.id !== undefined"
+              (click)="mostrarFormularioReserva(habitacion)"
+              title="Reservar habitación"
+            >
+              <i class="bi bi-calendar-check"></i> Reservar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulario de reserva -->
+  <div *ngIf="habitacionSeleccionada" class="card mt-4 shadow-sm">
+    <div class="card-header bg-light">
+      <h5>Reservar habitación N° {{ habitacionSeleccionada.numero }}</h5>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="confirmarReserva()">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="fechaDesde" class="form-label">Fecha Desde</label>
+            <input
+              id="fechaDesde"
+              type="date"
+              [(ngModel)]="fechaDesde"
+              name="fechaDesde"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="fechaHasta" class="form-label">Fecha Hasta</label>
+            <input
+              id="fechaHasta"
+              type="date"
+              [(ngModel)]="fechaHasta"
+              name="fechaHasta"
+              class="form-control"
+              required
+            />
+          </div>
+        </div>
+        <div class="mt-3">
+          <button type="submit" class="btn btn-primary me-2">
+            <i class="bi bi-check-circle"></i> Confirmar Reserva
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="cancelarReserva()">
+            <i class="bi bi-x-circle"></i> Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
