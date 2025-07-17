@@ -1,0 +1,59 @@
+<div class="container mt-5" style="max-width: 400px;">
+  <div class="card border-0 shadow">
+    <div class="card-header bg-dark text-white text-center">
+      <h4 class="mb-0">
+        <i class="bi bi-person-plus-fill"></i> Crear Cuenta
+      </h4>
+    </div>
+
+    <div class="card-body bg-light">
+      <form [formGroup]="registerForm" (ngSubmit)="registrar()">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre completo</label>
+          <input
+            id="nombre"
+            type="text"
+            formControlName="nombre"
+            class="form-control"
+            placeholder="Tu nombre completo"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="correo" class="form-label">Correo electrónico</label>
+          <input
+            id="correo"
+            type="email"
+            formControlName="correo"
+            class="form-control"
+            placeholder="usuario@hotel.com"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="contraseña" class="form-label">Contraseña</label>
+          <input
+            id="contraseña"
+            type="password"
+            formControlName="contraseña"
+            class="form-control"
+            placeholder="Mínimo 6 caracteres"
+          />
+        </div>
+
+        <button type="submit" class="btn btn-dark w-100" [disabled]="registerForm.invalid">
+          Registrarse
+        </button>
+
+        <div *ngIf="error" class="alert alert-danger mt-3 text-center">{{ error }}</div>
+        <div *ngIf="success" class="alert alert-success mt-3 text-center">{{ success }}</div>
+
+        <div class="text-center mt-3">
+          <a routerLink="/login" class="text-decoration-none">
+            <i class="bi bi-box-arrow-in-left"></i> Volver al login
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

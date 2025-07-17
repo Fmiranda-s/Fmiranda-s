@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export interface Usuario {
   id?: number;
   nombre: string;
   correo: string;
-  contraseña: string;
+  contraseña: string;  // Mantengo contraseña con ñ
 }
 
 @Injectable({
@@ -31,5 +32,12 @@ export class UsuariosService {
 
   eliminarUsuario(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  login(correo: string, contraseña: string): Observable<Usuario | null> {
+    const url = `${this.apiUrl}?correo=${encodeURIComponent(correo)}&contraseña=${encodeURIComponent(contraseña)}`;
+    return this.http.get<Usuario[]>(url).pipe(
+      map(usuarios => usuarios.length > 0 ? usuarios[0] : null)
+    );
   }
 }

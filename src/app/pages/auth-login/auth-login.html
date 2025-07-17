@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body bg-light">
-      <form>
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
         <div class="mb-3">
           <label for="correo" class="form-label">
             <i class="bi bi-envelope-fill"></i> Correo electrónico
@@ -15,24 +15,30 @@
           <input
             id="correo"
             type="email"
+            formControlName="correo"
             class="form-control"
             placeholder="usuario@hotel.com"
           />
         </div>
 
         <div class="mb-3">
-          <label for="clave" class="form-label">
+          <label for="contraseña" class="form-label">
             <i class="bi bi-key-fill"></i> Contraseña
           </label>
           <input
-            id="clave"
+            id="contraseña"
             type="password"
+            formControlName="contraseña"
             class="form-control"
             placeholder="••••••"
           />
         </div>
 
-        <button type="submit" class="btn btn-dark w-100">
+        <button
+          type="submit"
+          class="btn btn-dark w-100"
+          [disabled]="loginForm.invalid"
+        >
           <i class="bi bi-door-open-fill"></i> Entrar al sistema
         </button>
 
@@ -40,6 +46,10 @@
           <a routerLink="/register" class="text-decoration-none">
             <i class="bi bi-person-plus-fill"></i> ¿No tienes cuenta? Regístrate
           </a>
+        </div>
+
+        <div *ngIf="error" class="alert alert-danger mt-3 text-center">
+          {{ error }}
         </div>
       </form>
     </div>

@@ -12,7 +12,7 @@ import { ReservasService } from '../../service/reservas.service';
   styleUrls: ['./habitaciones.css']
 })
 export class Habitaciones implements OnInit {
-  habitaciones: Habitacion[] = [];
+  habitaciones: (Habitacion & { imagenUrl?: string })[] = [];
 
   habitacionSeleccionada: Habitacion | null = null;
   fechaDesde: string = '';
@@ -28,10 +28,17 @@ export class Habitaciones implements OnInit {
   }
 
   cargarHabitaciones(): void {
+    const baseUrl = 'https://apiclases.inacode.cl/hotel';
+
     this.habitacionesService.obtenerHabitaciones().subscribe({
       next: data => {
         console.log('Habitaciones desde API:', data);
-        this.habitaciones = data;
+        this.habitaciones = data.map(habitacion => ({
+          ...habitacion,
+          imagenUrl: habitacion.imagenHabitacion
+            ? baseUrl + habitacion.imagenHabitacion
+            : 'assets/habitacion.jpg' // imagen por defecto si no trae nada
+        }));
       },
       error: err => {
         console.error('Error al cargar habitaciones:', err);

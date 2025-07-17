@@ -3,10 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Habitacion {
-  id?: number; // opcional para el POST
+  id?: number; 
   numero: string;
   tipo: string;
   precio: number;
+  imagenHabitacion?: string;
 }
 
 @Injectable({
