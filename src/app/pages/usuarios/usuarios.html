@@ -1,7 +1,12 @@
 <div>
   <h2><i class="bi bi-people-fill"></i> Usuarios</h2>
   <hr>
-  <table class="table table-bordered table-striped">
+
+  <div *ngIf="usuarios.length === 0" class="alert alert-info text-center">
+    No hay usuarios registrados.
+  </div>
+
+  <table class="table table-bordered table-striped" *ngIf="usuarios.length > 0">
     <thead>
       <tr>
         <th>ID</th>
@@ -16,7 +21,9 @@
         <td>{{ usuario.nombre }}</td>
         <td>{{ usuario.correo }}</td>
         <td>
-          <button class="btn btn-sm btn-danger" (click)="eliminarUsuario(usuario.id!)">
+          <button
+            class="btn btn-sm btn-danger"
+            (click)="eliminarUsuario(usuario.id)">
             <i class="bi bi-trash"></i> Eliminar
           </button>
         </td>
